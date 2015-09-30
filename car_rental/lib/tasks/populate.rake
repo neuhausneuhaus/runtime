@@ -1,21 +1,34 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+namespace :db do
+  desc "Erase and fill database"
+  task :populate => :environment do
+
+    [Rental, Renter, Garage, Car].each(&:delete_all)
 
 
-[Rental, Renter, Garage, Car].each(&:delete_all)
+    # Create Garages
+    Faker::Config.locale = 'en-US'
+    100.times do
+      city = Faker::Address.city
+      garage = Garage.create(
+        address: Faker::Address.street_address + ', ' + city + ' ' + Faker::Address.state + ', ' + Faker::Address.zip,
+        name: city + ' ' + Faker::Company.buzzword.titlecase + ' Garage')
+      20.times do
+        car = garage.cars.new
+        car.rate = Faker::Commerce.price.to_f
+        car.make = "makey"
+        car.model = "model"
+        car.year = Faker::Date.between(5.years.ago, Date.today).year
+        car.plate = Faker::Internet.password(min_length=6, max_length=7).upcase
+        car.mileage = rand(1000..100000)
+        car.save
+      end
+    end
 
-Faker::Config.locale = 'en-US'
-  100.times do
-    city = Faker::Address.city
-    Garage.create(
-      address: Faker::Address.street_address + ', ' + city + ' ' + Faker::Address.state + ', ' + Faker::Address.zip,
-      name: city + ' ' + Faker::Company.buzzword.titlecase + ' Garage')
+
+
+  end
 end
+
 
 # =======   CARS   =========
 # Table name: cars
