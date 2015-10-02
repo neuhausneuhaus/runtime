@@ -11,6 +11,10 @@
 #  year      :integer          not null
 #  plate     :string           not null
 #
+# Indexes
+#
+#  index_cars_on_garage_id  (garage_id)
+#
 
 class Car < ActiveRecord::Base
   has_many :rentals

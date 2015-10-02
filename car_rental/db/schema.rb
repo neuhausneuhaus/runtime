@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20150930024554) do
     t.string  "plate",                             null: false
   end
 
+  add_index "cars", ["garage_id"], name: "index_cars_on_garage_id", using: :btree
+
   create_table "garages", force: :cascade do |t|
     t.string   "name",       null: false
     t.string   "address",    null: false
@@ -34,13 +36,15 @@ ActiveRecord::Schema.define(version: 20150930024554) do
   end
 
   create_table "rentals", force: :cascade do |t|
-    t.integer  "renter_id",  null: false
-    t.integer  "car_id",     null: false
-    t.integer  "duration"
-    t.integer  "miles"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "renter_id",      null: false
+    t.integer  "car_id"
+    t.integer  "duration_hours"
+    t.integer  "miles_driven"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
+
+  add_index "rentals", ["car_id"], name: "index_rentals_on_car_id", using: :btree
 
   create_table "renters", force: :cascade do |t|
     t.string   "name",       null: false
