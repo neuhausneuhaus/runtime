@@ -37,7 +37,7 @@ group :development, :test do
   gem 'pry-rails'
 
     # Added to Annotate Models based on Schema
-  gem 'annotate'
+  # gem 'annotate'
 
     # Added faker to generate seed data
   gem 'faker'
