@@ -11,4 +11,13 @@ While in the car_rental file, run **'rake runtime'** to analyze runtimes for .jo
 -[StackOverflow | Rails :include vs. :joins](http://stackoverflow.com/questions/1208636/rails-include-vs-joins)
 
 
--
+-[StuartEllis | Using Rake to Automate Tasks](http://www.stuartellis.eu/articles/rake/)
+
+
+-[API Dock | Ruby Benchmark Module](http://apidock.com/ruby/Benchmark)
+
+
+-[BIGBinary | Preload, Eagerload, Includes and Joins](http://blog.bigbinary.com/2013/07/01/preload-vs-eager-load-vs-joins-vs-includes.html)
+
+
+
