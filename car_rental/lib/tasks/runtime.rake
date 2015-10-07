@@ -8,18 +8,21 @@ task :runtime => :environment do
   end
 
   def seed_db
-    puts "Generating and seeding database..."
+    puts "Generating and seeding database:"
     require_relative '../assets/car_list.rb'
     # Create Garages
     Faker::Config.locale = 'en-US'
-    100.times do
+    100.times do |g| 
       city = Faker::Address.city
       garage = Garage.create(
         address: Faker::Address.street_address + ', ' + city + ' ' + Faker::Address.state + ', ' + Faker::Address.zip,
         name: city + ' ' + Faker::Company.buzzword.titlecase + ' Garage'
       )
-      # Create 20 cars for each garage
-      20.times do
+
+      # Create 2000 cars for each garage
+      
+      2000.times do |c|
+        print "Creating Car #{c+1}/2000 for Garage #{g+1}/100..\r"
         car = garage.cars.new
         car_info = @car_array[rand(0..1055)]
         car.rate = Faker::Commerce.price.to_f
@@ -33,13 +36,15 @@ task :runtime => :environment do
     end
 
     # Create Renters
-    800.times do
+    800.times do |renter_index|
       renter = Renter.create(
         name: Faker::Name.name,
         age: rand(18..80)
       )
       # Create 1-20 rentals per renter
-      rand(1..20).times do
+      rental_quatity = rand(1..20)
+      rental_quatity.times do |rental_index|
+        print "Creating Rental #{rental_index+1}/#{rental_quatity} for Renter #{renter_index+1}/800..\r"
         rental = renter.rentals.new
         # Assign a random car to rental
         rental.car = Car.find(rand(1..Car.all.size))

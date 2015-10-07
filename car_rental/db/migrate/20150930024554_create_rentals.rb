@@ -5,6 +5,7 @@ class CreateRentals < ActiveRecord::Migration
       t.integer :car_id, index:true
       t.integer :duration_hours
       t.integer :miles_driven
+      # t.integer :miles_driven, index:true
 
       t.timestamps null: false
     end
